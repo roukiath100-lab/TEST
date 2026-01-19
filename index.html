@@ -3,601 +3,541 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analyse Stratégique | Performance Insights</title>
-    <!-- Chosen Palette: Warm Neutrals & Professional Blue/Teal -->
-    <!-- Application Structure Plan: Structure thématique d'un rapport stratégique interactif. Une navigation fixe permet de sauter aux sections clés (Marché, Finances, Stratégie, Roadmap, BMC). Cette structure est choisie car elle reflète le flux de pensée d'un investisseur : 'Qu'est-ce que c'est ?', 'Est-ce un gros marché ?', 'Est-ce rentable ?', 'Quels sont les risques ?', 'Quel est le plan ?', 'Comment ça marche en résumé ?'. L'interactivité se concentre sur les chiffres (P&L) et la visualisation des jalons. -->
-    <!-- Visualization & Content Choices: 
-        - Marché -> Inform/Organize -> Doughnut Chart (Chart.js) -> Hover Tooltips -> Montre la segmentation du marché (SAM/SOM). (No SVG/Mermaid)
-        - Finances -> Explore/Inform -> Bar Chart (Chart.js) + HTML Slider -> L'utilisateur fait glisser "Unités" (0-3000), JS met à jour le Bar Chart (CA, COGS, EBITDA) & le texte P/L -> Rend le P&L interactif et démontre le seuil de rentabilité. (No SVG/Mermaid)
-        - Stratégie -> Inform -> HTML/Tailwind Cards (Unicode icons) -> Pas d'interaction -> Explique clairement le 'pourquoi' du prix élevé et du long délai. (No SVG/Mermaid)
-        - Roadmap -> Change/Organize -> Timeline Horizontale (HTML/Flexbox) -> Pas d'interaction -> Visualisation simple et claire des phases du projet. (No SVG/Mermaid)
-        - BMC -> Organize/Inform -> 9-Box Grid (HTML/Grid) -> Pas d'interaction -> Cadre récapitulatif classique pour l'ensemble du business model. (No SVG/Mermaid)
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
-            color: #212529;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
-        }
-        .nav-link {
-            transition: color 0.2s, border-bottom-color 0.2s;
-            border-bottom: 2px solid transparent;
-        }
-        .nav-link:hover {
-            color: #0d6efd;
-            border-bottom-color: #0d6efd;
-        }
-        .nav-link-active {
-            color: #0d6efd;
-            border-bottom-color: #0d6efd;
-            font-weight: 600;
-        }
-        .metric-card {
-            background-color: white;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-            border-top: 4px solid #0d6efd;
-        }
-        .info-card {
-            background-color: white;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-        }
-        .bmc-grid {
-            display: grid;
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-            gap: 1rem;
-        }
-        @media (min-width: 1024px) {
-            .bmc-grid {
-                grid-template-columns: repeat(5, minmax(0, 1fr));
-                grid-template-rows: repeat(3, minmax(0, auto));
-            }
-        }
-        .bmc-card {
-            background-color: white;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border: 1px solid #e5e7eb;
-            min-height: 150px;
-        }
-    </style>
+    <meta name="description" content="MG Consulting Group - Cabinet de conseil en Analyse Financière, Stratégie et Intelligence Économique en Afrique de l'Ouest">
+    <title>MG Consulting Group - Pilotez votre Croissance en Afrique de l'Ouest</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-50">
-
-    <header class="sticky top-0 bg-white shadow-md z-50">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
-            <div class="text-2xl font-bold text-blue-700">Performance Insights</div>
-            <div class="hidden md:flex space-x-6">
-                <a href="#accueil" class="nav-link px-2 py-1">Accueil</a>
-                <a href="#marche" class="nav-link px-2 py-1">Marché</a>
-                <a href="#finances" class="nav-link px-2 py-1">Finances</a>
-                <a href="#strategie" class="nav-link px-2 py-1">Stratégie</a>
-                <a href="#deploiement" class="nav-link px-2 py-1">Déploiement</a>
-                <a href="#bmc" class="nav-link px-2 py-1">BMC</a>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <span class="logo-mg">MG</span>
+                <span class="logo-text">Consulting Group</span>
             </div>
-        </nav>
-    </header>
+            <button class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#accueil" class="nav-link active">Accueil</a></li>
+                <li><a href="#expertises" class="nav-link">Nos Expertises</a></li>
+                <li><a href="#approche" class="nav-link">Notre Approche</a></li>
+                <li><a href="#ressources" class="nav-link">Ressources</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#contact" class="btn-nav">Demander un devis</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <section id="accueil" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1 class="hero-title">Pilotez votre Croissance et Sécurisez vos Décisions en Afrique de l'Ouest</h1>
+            <p class="hero-subtitle">Cabinet de conseil spécialisé en Analyse Financière, Stratégie et Intelligence Économique pour les PME, ONG et Grandes Entreprises.</p>
+            <div class="hero-cta">
+                <a href="https://wa.me/330602869748" class="btn btn-primary" target="_blank">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    Parler à un expert
+                </a>
+                <a href="#expertises" class="btn btn-secondary">Nos Services</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
 
-        <!-- ===== Section Accueil ===== -->
-        <section id="accueil" class="min-h-[80vh] flex flex-col justify-center py-16">
-            <h1 class="text-5xl font-extrabold text-gray-900 mb-4">Analyse Stratégique</h1>
-            <h2 class="text-3xl font-semibold text-blue-700 mb-8">Dispositif de Suivi Métabolique en Temps Réel</h2>
-            <p class="text-lg text-gray-700 max-w-3xl mb-12">
-                Cette analyse présente le plan stratégique pour un dispositif de suivi continu des biomarqueurs (glucose et lactate) destiné aux athlètes d'endurance. L'objectif est de fournir un outil permettant l'ajustement instantané de la nutrition et de l'entraînement, répondant à un besoin non couvert de suivi métabolique en temps réel.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="info-card border-l-4 border-red-500">
-                    <h3 class="text-2xl font-bold mb-3"><span class="mr-2">❗️</span>Le Problème</h3>
-                    <p class="text-gray-700">Les athlètes d'endurance rencontrent des baisses d'énergie imprévues et une difficulté à adapter leur entraînement/nutrition faute de données métaboliques internes. Les outils actuels (cardio, GPS) sont insuffisants.</p>
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="25">0</div>
+                    <div class="stat-label">Clients accompagnés</div>
                 </div>
-                <div class="info-card border-l-4 border-green-500">
-                    <h3 class="text-2xl font-bold mb-3"><span class="mr-2">💡</span>La Solution</h3>
-                    <p class="text-gray-700">Un capteur miniaturisé pour le suivi continu du **glucose et du lactate**. Il permet de détecter les déséquilibres en temps réel, d'ajuster l'effort et d'optimiser la performance et la durabilité de la carrière.</p>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="8">0</div>
+                    <div class="stat-label">Pays d'intervention</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="50">0</div>
+                    <div class="stat-label">Missions réalisées</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="5">0</div>
+                    <div class="stat-label">Années d'expérience</div>
                 </div>
             </div>
-             <div class="mt-8 info-card border-l-4 border-blue-500">
-                <h3 class="text-2xl font-bold mb-3"><span class="mr-2">🎯</span>La Cible (SAM Initial)</h3>
-                <p class="text-gray-700">Le marché adressable initial (SAM) est un segment B2B premium : les **athlètes d'endurance professionnels et semi-professionnels** (cyclisme, course à pied, triathlon) ainsi que leurs **prescripteurs** (entraîneurs et nutritionnistes).</p>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ===== Section Marché ===== -->
-        <section id="marche" class="min-h-[90vh] py-16">
-            <h2 class="text-4xl font-bold text-center mb-4">Le Potentiel de Marché (TAM/SAM/SOM)</h2>
-            <p class="text-lg text-gray-700 text-center max-w-3xl mx-auto mb-12">
-                L'analyse du marché se concentre sur le segment européen pour s'aligner sur les contraintes réglementaires (MDR/CE). Nous ciblons une niche premium B2B (SAM) avec un objectif de part de marché (SOM) réaliste à 2 ans, justifiant un prix élevé.
-            </p>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                <div class="chart-container h-96 md:h-[400px]">
-                    <canvas id="marketChart"></canvas>
-                </div>
-                <div class="space-y-6">
-                    <div class="metric-card">
-                        <h3 class="text-lg font-semibold text-gray-600">TAM (Total Adressable Market)</h3>
-                        <p class="text-4xl font-extrabold text-blue-700">~ $5-10 Milliards</p>
-                        <p class="text-gray-600">Marché mondial du monitoring physiologique avancé pour le sport.</p>
+    <section class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-left">
+                    <span class="section-badge">À propos de nous</span>
+                    <h2 class="section-title">Qui sommes-nous ?</h2>
+                    <p class="about-description">Fondé par <strong>TCHANI Moubarak</strong> et <strong>Abdel AMADOU Ganiyou</strong>, <strong>MG Consulting Group</strong> combine une expertise financière rigoureuse et une vision stratégique pointue. Notre mission est d'accompagner nos clients dans l'optimisation de leur performance et l'anticipation des évolutions de leur environnement.</p>
+                    <div class="highlight-box">
+                        <svg class="highlight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <p><strong>Notre Force :</strong> Une approche sur mesure, confidentielle et orientée résultats.</p>
                     </div>
-                    <div class="metric-card">
-                        <h3 class="text-lg font-semibold text-gray-600">SAM (Serviceable Available Market)</h3>
-                        <p class="text-4xl font-extrabold text-blue-700">$95 Millions</p>
-                        <p class="text-gray-600">100 000 utilisateurs Pro/Semi-Pro & coachs en Europe (cible B2B).</p>
-                    </div>
-                    <div class="metric-card border-t-4 border-teal-500">
-                        <h3 class="text-lg font-semibold text-gray-600">SOM (Serviceable Obtainable Market)</h3>
-                        <p class="text-4xl font-extrabold text-teal-600">$2.375 Millions (2.5%)</p>
-                        <p class="text-gray-600">Objectif réaliste à 2 ans (2 500 unités/abonnements).</p>
-                    </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- ===== Section Finances ===== -->
-        <section id="finances" class="min-h-[90vh] py-16">
-            <h2 class="text-4xl font-bold text-center mb-4">La Viabilité Financière (Mini P&L)</h2>
-            <p class="text-lg text-gray-700 text-center max-w-3xl mx-auto mb-12">
-                Le modèle financier est basé sur l'atteinte du SOM (2 500 unités). L'interactivité ci-dessous vous permet de simuler la rentabilité en fonction du volume de ventes, démontrant la robustesse du modèle et le point mort.
-            </p>
-            
-            <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                    <div>
-                        <div class="mb-6">
-                            <label for="unitsSlider" class="text-lg font-semibold text-gray-800">Simulateur d'unités vendues : <span id="unitsValue" class="font-extrabold text-blue-700">2500</span></label>
-                            <input id="unitsSlider" type="range" min="0" max="3500" value="2500" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                        </div>
-                        <div class="grid grid-cols-2 gap-4 text-center">
-                            <div class="p-4 bg-blue-50 rounded-lg">
-                                <h4 class="text-sm font-semibold text-blue-800">CHIFFRE D'AFFAIRES</h4>
-                                <p id="caValue" class="text-2xl font-extrabold text-blue-800">€0</p>
+                <div class="about-right">
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                </svg>
                             </div>
-                            <div class="p-4 bg-gray-50 rounded-lg">
-                                <h4 class="text-sm font-semibold text-gray-700">PROFIT / PERTE (EBITDA)</h4>
-                                <p id="profitValue" class="text-2xl font-extrabold text-red-600">€0</p>
+                            <div>
+                                <h4>Expertise Reconnue</h4>
+                                <p>Certifications et formations de haut niveau</p>
                             </div>
                         </div>
-                        <div class="mt-6 p-4 bg-gray-100 rounded-lg">
-                            <h4 class="text-lg font-bold text-center mb-2">Hypothèses Clés</h4>
-                            <ul class="divide-y divide-gray-300">
-                                <li class="flex justify-between py-2 text-sm"><span class="text-gray-600">Prix Unitaire (PU)</span><span class="font-semibold">€870</span></li>
-                                <li class="flex justify-between py-2 text-sm"><span class="text-gray-600">COGS Unitaire</span><span class="font-semibold">€165</span></li>
-                                <li class="flex justify-between py-2 text-sm"><span class="text-gray-600">Frais Fixes Annuels</span><span class="font-semibold">€500 000</span></li>
-                                <li class="flex justify-between pt-2 text-sm font-bold"><span class="text-gray-800">Point Mort (Unités)</span><span class="text-teal-600">709 Unités</span></li>
-                            </ul>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Présence Régionale</h4>
+                                <p>Couverture de toute l'Afrique de l'Ouest</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Réactivité</h4>
+                                <p>Réponse sous 24h et accompagnement continu</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="chart-container h-96 md:h-[450px]">
-                        <canvas id="pnlChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="domains">
+        <div class="container">
+            <h2 class="section-title center">Nos Domaines d'Intervention</h2>
+            <div class="domains-grid">
+                <a href="#expertises" class="domain-card">
+                    <div class="domain-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
                     </div>
-                </div>
-            </div>
-        </section>
+                    <h3>Analyse Financière & Pilotage</h3>
+                    <p>Diagnostic, tableaux de bord, rentabilité et solvabilité</p>
+                </a>
 
-        <!-- ===== Section Stratégie ===== -->
-        <section id="strategie" class="min-h-[80vh] py-16">
-            <h2 class="text-4xl font-bold text-center mb-4">Stratégie & Contraintes Sectorielles</h2>
-            <p class="text-lg text-gray-700 text-center max-w-3xl mx-auto mb-12">
-                Le modèle économique est directement dicté par les contraintes sectorielles. Ces "barrières à l'entrée" sont coûteuses mais créent un avantage compétitif durable en justifiant notre positionnement premium.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="info-card border-l-4 border-red-500">
-                    <h3 class="text-2xl font-bold mb-3"><span class="mr-2">🛡️</span> 1. Règlement Dispositifs Médicaux (MDR/CE)</h3>
-                    <p class="text-gray-700 mb-4">En tant que dispositif mesurant des biomarqueurs (Classe IIa min.), le marquage CE est obligatoire. C'est le goulot d'étranglement principal du projet.</p>
-                    <h4 class="font-semibold text-gray-800">Implications Stratégiques :</h4>
-                    <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
-                        <li>Génère des **coûts fixes élevés** (€80k+/an) pour la R&D qualité, le SMQ et les audits.</li>
-                        <li>Impose un **délai de mise sur le marché long** (validation clinique, certification).</li>
-                        <li>**Justifie le prix premium** : un marché de masse B2C ne pourrait absorber ces coûts.</li>
+                <a href="#expertises" class="domain-card">
+                    <div class="domain-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                        </svg>
+                    </div>
+                    <h3>Finance d'Entreprise & Croissance</h3>
+                    <p>Financement, business plans et restructuration</p>
+                </a>
+
+                <a href="#expertises" class="domain-card">
+                    <div class="domain-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                    </div>
+                    <h3>Veille Stratégique</h3>
+                    <p>Intelligence économique, concurrence et réglementation</p>
+                </a>
+
+                <a href="#expertises" class="domain-card">
+                    <div class="domain-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                        </svg>
+                    </div>
+                    <h3>Analyse Stratégique & Décision</h3>
+                    <p>Diagnostic SWOT, PESTEL et scénarios prospectifs</p>
+                </a>
+
+                <a href="#expertises" class="domain-card">
+                    <div class="domain-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <h3>Projets & ONG</h3>
+                    <p>Budgétisation, reporting et études d'impact</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="expertises" class="expertises">
+        <div class="container">
+            <h2 class="section-title center">Nos Expertises</h2>
+            <p class="section-subtitle">5 piliers pour accompagner votre réussite</p>
+
+            <div class="expertise-list">
+                <div class="expertise-item">
+                    <div class="expertise-header">
+                        <div class="expertise-number">01</div>
+                        <h3>Analyse Financière & Pilotage</h3>
+                    </div>
+                    <p class="expertise-target"><strong>Pour qui ?</strong> Entreprises cherchant à optimiser leur rentabilité.</p>
+                    <h4>Nos solutions :</h4>
+                    <ul class="expertise-solutions">
+                        <li>Diagnostic complet (Bilan, SIG, Trésorerie)</li>
+                        <li>Mise en place de tableaux de bord et suivi budgétaire (KPIs)</li>
+                        <li>Analyse de rentabilité et calcul des coûts</li>
+                        <li>Analyse de solvabilité et capacité d'autofinancement (CAF)</li>
                     </ul>
                 </div>
-                <div class="info-card border-l-4 border-blue-500">
-                    <h3 class="text-2xl font-bold mb-3"><span class="mr-2">🔒</span> 2. Protection des Données (RGPD)</h3>
-                    <p class="text-gray-700 mb-4">Le dispositif collecte des données de santé sensibles, imposant des règles strictes de consentement, sécurisation et anonymisation.</p>
-                    <h4 class="font-semibold text-gray-800">Implications Stratégiques :</h4>
-                    <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
-                        <li>Nécessite des investissements en **infrastructure IT sécurisée** (Hébergeur de Données de Santé).</li>
-                        <li>Crée un **actif secondaire de haute valeur** : les données anonymisées (avec consentement) peuvent être licenciées pour la recherche.</li>
+
+                <div class="expertise-item">
+                    <div class="expertise-header">
+                        <div class="expertise-number">02</div>
+                        <h3>Finance d'Entreprise & Croissance</h3>
+                    </div>
+                    <p class="expertise-target"><strong>Pour qui ?</strong> PME en phase de développement ou de restructuration.</p>
+                    <h4>Nos solutions :</h4>
+                    <ul class="expertise-solutions">
+                        <li>Montage de dossiers de crédit et recherche de financement</li>
+                        <li>Élaboration d'états financiers prévisionnels et Business Plans</li>
+                        <li>Appui à la gestion financière et organisation interne</li>
+                        <li>Conseil en investissement et arbitrage financier</li>
+                    </ul>
+                </div>
+
+                <div class="expertise-item">
+                    <div class="expertise-header">
+                        <div class="expertise-number">03</div>
+                        <h3>Veille Stratégique & Intelligence Économique</h3>
+                    </div>
+                    <p class="expertise-target"><strong>Pour qui ?</strong> Dirigeants souhaitant anticiper le marché.</p>
+                    <h4>Nos solutions :</h4>
+                    <ul class="expertise-solutions">
+                        <li>Veille concurrentielle : Analyse des prix et du positionnement adverse</li>
+                        <li>Veille financière : Identification des subventions, appels à projets et opportunités de financement</li>
+                        <li>Veille réglementaire : Suivi des évolutions fiscales et juridiques en Afrique de l'Ouest</li>
+                    </ul>
+                </div>
+
+                <div class="expertise-item">
+                    <div class="expertise-header">
+                        <div class="expertise-number">04</div>
+                        <h3>Analyse Stratégique & Décision</h3>
+                    </div>
+                    <p class="expertise-target"><strong>Pour qui ?</strong> Décideurs face à des choix complexes.</p>
+                    <h4>Nos solutions :</h4>
+                    <ul class="expertise-solutions">
+                        <li>Diagnostic stratégique (SWOT, PESTEL)</li>
+                        <li>Rédaction de notes stratégiques et aide à la décision</li>
+                        <li>Élaboration de scénarios prospectifs et analyse des risques</li>
+                    </ul>
+                </div>
+
+                <div class="expertise-item highlight">
+                    <div class="expertise-header">
+                        <div class="expertise-number">05</div>
+                        <h3>Pôle Spécial : ONG & Projets de Développement</h3>
+                    </div>
+                    <p class="expertise-target"><strong>Pour qui ?</strong> ONG, Bailleurs de fonds, Institutions.</p>
+                    <h4>Nos solutions :</h4>
+                    <ul class="expertise-solutions">
+                        <li>Budgétisation et analyse de viabilité financière de projets</li>
+                        <li>Reporting financier aux bailleurs de fonds</li>
+                        <li>Études de faisabilité et études d'impact socio-économique</li>
                     </ul>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ===== Section Déploiement ===== -->
-        <section id="deploiement" class="min-h-[80vh] py-16">
-            <h2 class="text-4xl font-bold text-center mb-4">Feuille de Route (Go-to-Market)</h2>
-            <p class="text-lg text-gray-700 text-center max-w-3xl mx-auto mb-12">
-                Notre plan de déploiement est une séquence logique dictée par les impératifs technologiques et réglementaires. Le premier client "payant" est un partenaire stratégique essentiel à la certification.
-            </p>
+    <section class="testimonials">
+        <div class="container">
+            <span class="section-badge center-badge">Témoignages</span>
+            <h2 class="section-title center">Ce que disent nos clients</h2>
+            <p class="section-subtitle">La confiance de nos partenaires est notre plus grande réussite</p>
             
-            <div class="relative w-full py-10">
-                <div class="absolute left-1/2 top-0 bottom-0 w-1 bg-blue-200 hidden md:block"></div>
-                
-                <div class="relative md:flex md:justify-center md:items-center mb-12">
-                    <div class="md:w-1/2 md:pr-8 md:text-right">
-                        <div class="p-6 bg-white rounded-lg shadow-lg border-l-4 md:border-l-0 md:border-r-4 border-blue-600">
-                            <p class="text-sm font-semibold text-blue-600">Q3 2026 (Hypothèse)</p>
-                            <h3 class="text-xl font-bold text-gray-900">1. Jalon Technologique</h3>
-                            <p class="text-gray-700">Validation du POC Clinique : Obtention de résultats positifs sur la fiabilité et la précision du capteur (glucose/lactate) en conditions réelles d'entraînement.</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="quote-icon">"</div>
+                    <p class="testimonial-text">MG Consulting Group nous a accompagnés dans la structuration de notre business plan et la recherche de financement. Leur rigueur et leur connaissance du terrain ont fait la différence.</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Yves K.</h4>
+                            <p>Directeur Général, SARL AgriPlus - Bénin</p>
                         </div>
                     </div>
-                    <div class="absolute left-1/2 -ml-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-blue-600 rounded-full border-4 border-white hidden md:block"></div>
-                    <div class="md:w-1/2 md:pl-8"></div>
                 </div>
 
-                <div class="relative md:flex md:justify-center md:items-center mb-12">
-                    <div class="md:w-1/2 md:pr-8"></div>
-                    <div class="absolute left-1/2 -ml-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-blue-600 rounded-full border-4 border-white hidden md:block"></div>
-                    <div class="md:w-1/2 md:pl-8">
-                         <div class="p-6 bg-white rounded-lg shadow-lg border-l-4 border-red-600">
-                            <p class="text-sm font-semibold text-red-600">Q2 2027 (Hypothèse)</p>
-                            <h3 class="text-xl font-bold text-gray-900">2. Jalon Réglementaire</h3>
-                            <p class="text-gray-700">Soumission du Dossier Technique MDR à l'Organisme Notifié après finalisation du dossier, implémentation du SMQ et dépôt officiel de la demande d'audit.</p>
+                <div class="testimonial-card">
+                    <div class="quote-icon">"</div>
+                    <p class="testimonial-text">Grâce à leur analyse financière détaillée, nous avons pu identifier nos points faibles et réorganiser notre gestion. Une vraie valeur ajoutée pour notre organisation.</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Marie T.</h4>
+                            <p>Coordinatrice, ONG Développement Solidaire</p>
                         </div>
                     </div>
                 </div>
-                
-                <div class="relative md:flex md:justify-center md:items-center">
-                    <div class="md:w-1/2 md:pr-8 md:text-right">
-                        <div class="p-6 bg-white rounded-lg shadow-lg border-l-4 md:border-l-0 md:border-r-4 border-teal-600">
-                            <p class="text-sm font-semibold text-teal-600">Q4 2027 (Hypothèse)</p>
-                            <h3 class="text-xl font-bold text-gray-900">3. Jalon Business</h3>
-                            <p class="text-gray-700">Sécurisation du 1er Client Pilote : Signature d'un partenariat stratégique (ex: équipe cycliste Pro) pour générer les premières données cliniques en situation et co-financer l'effort d'audit.</p>
+
+                <div class="testimonial-card">
+                    <div class="quote-icon">"</div>
+                    <p class="testimonial-text">Professionnels, réactifs et à l'écoute. Leur expertise en veille stratégique nous a permis de saisir des opportunités que nous n'aurions pas vues seuls.</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Kossi M.</h4>
+                            <p>Fondateur, TechServices Togo</p>
                         </div>
                     </div>
-                    <div class="absolute left-1/2 -ml-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-blue-600 rounded-full border-4 border-white hidden md:block"></div>
-                    <div class="md:w-1/2 md:pl-8"></div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ===== Section BMC ===== -->
-        <section id="bmc" class="min-h-[90vh] py-16">
-            <h2 class="text-4xl font-bold text-center mb-4">Business Model Canvas Final</h2>
-            <p class="text-lg text-gray-700 text-center max-w-3xl mx-auto mb-12">
-                Le BMC final synthétise l'ensemble de la stratégie. Il met en évidence la cohérence entre le P&L et les cases "Flux de Revenus" (abonnement premium) et "Structure de Coûts" (dominée par les frais fixes R&D et MDR).
-            </p>
-            
-            <div class="bmc-grid bg-gray-50 p-4 rounded-lg">
-                
-                <div class="bmc-card lg:col-span-1">
-                    <h4 class="font-bold text-blue-700 mb-2">Partenaires Clés</h4>
-                    <ul class="list-disc ml-4 text-sm space-y-1">
-                        <li>Centres de Recherche (Validation)</li>
-                        <li>Organisme Notifié (MDR/CE)</li>
-                        <li>Équipes Sportives Pro (Pilotes)</li>
-                        <li>Producteurs de capteurs</li>
-                    </ul>
-                </div>
-                
-                <div class="bmc-card lg:col-span-1">
-                    <h4 class="font-bold text-blue-700 mb-2">Activités Clés</h4>
-                    <ul class="list-disc ml-4 text-sm space-y-1">
-                        <li>R&D et Fiabilisation Capteur</li>
-                        <li>Gestion Qualité (SMQ/MDR)</li>
-                        <li>Développement Plateforme Data</li>
-                    </ul>
-                </div>
-                
-                <div class="bmc-card lg:col-span-1 bg-blue-100 border-blue-300">
-                    <h4 class="font-bold text-blue-800 mb-2">Proposition de Valeur</h4>
-                    <p class="text-sm font-semibold">Ajustement instantané de la nutrition et de l'entraînement via suivi Glucose/Lactate en temps réel.</p>
-                </div>
-                
-                <div class="bmc-card lg:col-span-1">
-                    <h4 class="font-bold text-blue-700 mb-2">Relations Clients</h4>
-                    <ul class="list-disc ml-4 text-sm space-y-1">
-                        <li>Support B2B personnalisé</li>
-                        <li>Co-création (feedback MDR)</li>
-                    </ul>
-                </div>
-                
-                <div class="bmc-card lg:col-span-1">
-                    <h4 class="font-bold text-blue-700 mb-2">Segments Clients</h4>
-                    <ul class="list-disc ml-4 text-sm space-y-1">
-                        <li>Athlètes Pro/Semi-Pro</li>
-                        <li>Coachs & Préparateurs</li>
-                        <li>Nutritionnistes Sportifs</li>
-                    </ul>
-                </div>
-                
-                <div class="bmc-card lg:col-span-1 lg:row-start-2">
-                     <h4 class="font-bold text-blue-700 mb-2">Ressources Clés</h4>
-                    <ul class="list-disc ml-4 text-sm space-y-1">
-                        <li>Propriété Intellectuelle (Algo)</li>
-                        <li>Expertise Réglementaire MDR</li>
-                        <li>Infrastructure IT Sécurisée (RGPD)</li>
-                    </ul>
-                </div>
-                
-                <div class="bmc-card lg:col-span-1 lg:row-start-2">
-                    <h4 class="font-bold text-blue-700 mb-2">Canaux de Distribution</h4>
-                    <ul class="list-disc ml-4 text-sm space-y-1">
-                        <li>Direct B2B (Équipes Pro)</li>
-                        <li>Prescription (Coachs, Nutri.)</li>
-                    </ul>
-                </div>
-                
-                <div class="bmc-card lg:col-span-3 lg:col-start-1 lg:row-start-3 bg-gray-200 border-t-4 border-red-500">
-                    <h4 class="font-bold text-red-700 mb-2">Structure de Coûts (P&L)</h4>
-                    <ul class="list-disc ml-4 text-sm space-y-1">
-                        <li>**Fixes :** R&D Cœur, Conformité MDR/SMQ (€500k/an)</li>
-                        <li>**Variables :** COGS (Capteurs, Logistique - €165/u)</li>
-                        <li>Marketing B2B Ciblé</li>
-                    </ul>
-                </div>
-                
-                <div class="bmc-card lg:col-span-2 lg:col-start-4 lg:row-start-3 bg-gray-200 border-t-4 border-green-500">
-                    <h4 class="font-bold text-green-700 mb-2">Flux de Revenus (P&L)</h4>
-                    <ul class="list-disc ml-4 text-sm space-y-1">
-                        <li>**Modèle Hybride (€870 PU Total)**</li>
-                        <li>Vente Initiale (Matériel)</li>
-                        <li>Abonnement Annuel (Data & Consommables)</li>
-                    </ul>
+    <section id="approche" class="approche">
+        <div class="container">
+            <span class="section-badge center-badge">Notre Méthode</span>
+            <h2 class="section-title center">Notre Approche</h2>
+            <p class="section-subtitle">Pourquoi choisir MG Consulting Group ?</p>
+
+            <div class="approche-grid">
+                <div class="approche-card">
+                    <div class="approche-number">01</div>
+                    <div class="approche-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                        </svg>
+                    </div>
+                    <h3>Méthodologie Rigoureuse</h3>
+                    <p>Nos missions débutent par des audits et diagnostics précis pour aboutir à des plans d'action concrets.</p>
                 </div>
 
+                <div class="approche-card">
+                    <div class="approche-number">02</div>
+                    <div class="approche-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                        </svg>
+                    </div>
+                    <h3>Sur-Mesure</h3>
+                    <p>Nous refusons les solutions standardisées. Chaque offre est adaptée aux besoins spécifiques du client.</p>
+                </div>
+
+                <div class="approche-card">
+                    <div class="approche-number">03</div>
+                    <div class="approche-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3>Transparence</h3>
+                    <p>Une politique de prix compétitive avec une transparence totale sur la structure des coûts.</p>
+                </div>
+
+                <div class="approche-card">
+                    <div class="approche-number">04</div>
+                    <div class="approche-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3>Engagement</h3>
+                    <p>Nous visons la création de valeur mesurable : augmentation de la rentabilité et compétitivité.</p>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </main>
+    <section id="ressources" class="ressources">
+        <div class="container">
+            <h2 class="section-title center">Ressources & Veille</h2>
+            <p class="section-subtitle">Notre expertise partagée pour vous aider à décider</p>
 
-    <footer class="text-center py-8 bg-gray-800 text-gray-400 text-sm">
-        <p>Performance Insights | Analyse Stratégique | Octobre 2025</p>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-category">Finance</div>
+                    <h3>Comment optimiser le BFR de votre PME en 2026 ?</h3>
+                    <p>Le Besoin en Fonds de Roulement est un indicateur crucial pour la santé financière de votre entreprise. Découvrez nos 5 stratégies pour réduire votre BFR...</p>
+                    <a href="#contact" class="blog-link">En savoir plus →</a>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-category">ONG</div>
+                    <h3>Les nouvelles opportunités de subventions pour les ONG en Afrique de l'Ouest</h3>
+                    <p>Les bailleurs de fonds internationaux multiplient les appels à projets. Nous avons identifié les principales opportunités de financement pour 2026...</p>
+                    <a href="#contact" class="blog-link">En savoir plus →</a>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-category">Analyse Sectorielle</div>
+                    <h3>Analyse sectorielle : Les tendances de l'agro-industrie</h3>
+                    <p>L'agro-industrie connaît une transformation profonde en Afrique de l'Ouest. Analyse des opportunités, défis et perspectives d'investissement...</p>
+                    <a href="#contact" class="blog-link">En savoir plus →</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title center">Prêt à passer au niveau supérieur ?</h2>
+            <p class="section-subtitle">Discutons de vos enjeux</p>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Nos Coordonnées</h3>
+                    
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <div>
+                            <strong>Adresse</strong>
+                            <p>Bénin<br>Nous intervenons partout en Afrique de l'Ouest</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <div>
+                            <strong>Email</strong>
+                            <p>
+                                <a href="mailto:abdelamad@yahoo.com">abdelamad@yahoo.com</a><br>
+                                <a href="mailto:tchanimoub@gmail.com">tchanimoub@gmail.com</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        <div>
+                            <strong>Téléphone / WhatsApp</strong>
+                            <p>
+                                <a href="tel:+330602869748">+33 06 02 86 97 48</a><br>
+                                <a href="https://wa.me/2290161011814" target="_blank">+229 01 61 01 18 14</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <div>
+                            <strong>Recrutement</strong>
+                            <p>Nous agrandissons notre équipe selon les besoins. Contactez-nous !</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="nom">Nom complet *</label>
+                        <input type="text" id="nom" name="nom" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="entreprise">Entreprise / Organisation</label>
+                        <input type="text" id="entreprise" name="entreprise">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telephone">Téléphone *</label>
+                        <input type="tel" id="telephone" name="telephone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="besoin">Type de besoin *</label>
+                        <select id="besoin" name="besoin" required>
+                            <option value="">-- Sélectionnez --</option>
+                            <option value="audit">Audit / Analyse Financière</option>
+                            <option value="financement">Financement / Business Plan</option>
+                            <option value="strategie">Stratégie / Veille</option>
+                            <option value="ong">Projet ONG / Développement</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">Envoyer ma demande</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-mg">MG</span>
+                        <span class="logo-text">Consulting Group</span>
+                    </div>
+                    <p>Cabinet de conseil en Finance, Stratégie et Intelligence Économique</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Liens rapides</h4>
+                    <ul>
+                        <li><a href="#accueil">Accueil</a></li>
+                        <li><a href="#expertises">Nos Expertises</a></li>
+                        <li><a href="#approche">Notre Approche</a></li>
+                        <li><a href="#ressources">Ressources</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p>Email: <a href="mailto:abdelamad@yahoo.com">abdelamad@yahoo.com</a></p>
+                    <p>Email: <a href="mailto:tchanimoub@gmail.com">tchanimoub@gmail.com</a></p>
+                    <p>Tél: <a href="tel:+330602869748">+33 06 02 86 97 48</a></p>
+                    <p>WhatsApp: <a href="https://wa.me/2290161011814">+229 01 61 01 18 14</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MG Consulting Group. Tous droits réservés.</p>
+            </div>
+        </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
+    <a href="https://wa.me/2290161011814" class="whatsapp-float" target="_blank" title="Contactez-nous sur WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
 
-            const projectData = {
-                pu: 870,
-                cogs: 165,
-                ff: 500000,
-                somUnits: 2500,
-                samValue: 95000000,
-                somValue: 2375000
-            };
-
-            const currencyFormat = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 });
-            const numberFormat = new Intl.NumberFormat('fr-FR');
-
-            function wrapText(ctx, text, maxWidth) {
-                const words = text.split(' ');
-                let lines = [];
-                let currentLine = words[0];
-                for (let i = 1; i < words.length; i++) {
-                    const word = words[i];
-                    const width = ctx.measureText(currentLine + ' ' + word).width;
-                    if (width < maxWidth) {
-                        currentLine += ' ' + word;
-                    } else {
-                        lines.push(currentLine);
-                        currentLine = word;
-                    }
-                }
-                lines.push(currentLine);
-                return lines;
-            }
-
-            // ===== Chart Marché (Doughnut) =====
-            const ctxMarche = document.getElementById('marketChart').getContext('2d');
-            const marketChart = new Chart(ctxMarche, {
-                type: 'doughnut',
-                data: {
-                    labels: ['SOM (Notre Cible)', 'Reste du SAM (Non Atteint)'],
-                    datasets: [{
-                        data: [projectData.somValue, projectData.samValue - projectData.somValue],
-                        backgroundColor: [
-                            'rgba(13, 110, 253, 0.8)', // Blue
-                            'rgba(206, 212, 218, 0.5)' // Gray
-                        ],
-                        borderColor: [
-                            '#ffffff',
-                            '#ffffff'
-                        ],
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                        },
-                        title: {
-                            display: true,
-                            text: 'Répartition SAM vs SOM (Valeur Annuelle)'
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed !== null) {
-                                        label += currencyFormat.format(context.parsed);
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
-            // ===== Chart Finances (Bar) & Interactivité =====
-            const ctxFinances = document.getElementById('pnlChart').getContext('2d');
-            let pnlChart = new Chart(ctxFinances, {
-                type: 'bar',
-                data: {
-                    labels: ['Résultat Annuel Simulé'],
-                    datasets: [
-                        {
-                            label: 'COGS (Variables)',
-                            data: [0],
-                            backgroundColor: 'rgba(253, 126, 20, 0.7)',
-                            stack: 'stack1'
-                        },
-                        {
-                            label: 'Frais Fixes',
-                            data: [0],
-                            backgroundColor: 'rgba(220, 53, 69, 0.7)',
-                            stack: 'stack1'
-                        },
-                        {
-                            label: 'EBITDA (Profit)',
-                            data: [0],
-                            backgroundColor: 'rgba(25, 135, 84, 0.7)',
-                            stack: 'stack1'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    scales: {
-                        x: {
-                            stacked: true,
-                            title: {
-                                display: true,
-                                text: 'Euros (€)'
-                            },
-                            ticks: {
-                                callback: (value) => currencyFormat.format(value)
-                            }
-                        },
-                        y: {
-                            stacked: true
-                        }
-                    },
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Décomposition du Chiffre d\'Affaires'
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.x !== null) {
-                                        label += currencyFormat.format(context.parsed.x);
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
-            const slider = document.getElementById('unitsSlider');
-            const unitsValueDisplay = document.getElementById('unitsValue');
-            const caValueDisplay = document.getElementById('caValue');
-            const profitValueDisplay = document.getElementById('profitValue');
-
-            function updateFinances(unites) {
-                const ca = unites * projectData.pu;
-                const cogsTotal = unites * projectData.cogs;
-                let ebitda = ca - cogsTotal - projectData.ff;
-                let profitData = 0;
-                let cogsData = cogsTotal;
-                let ffData = projectData.ff;
-
-                if (ebitda < 0) {
-                    profitData = 0; 
-                } else {
-                    profitData = ebitda;
-                }
-                
-                pnlChart.data.datasets[0].data[0] = cogsData;
-                pnlChart.data.datasets[1].data[0] = ffData;
-                pnlChart.data.datasets[2].data[0] = profitData;
-                
-                if(ebitda < 0) {
-                     pnlChart.data.datasets[2].data[0] = 0;
-                }
-                
-                if (ca < (cogsTotal + projectData.ff)) {
-                    pnlChart.data.datasets[1].data[0] = ca - cogsTotal > 0 ? ca - cogsTotal : 0;
-                    if (ca < cogsTotal) {
-                        pnlChart.data.datasets[0].data[0] = ca;
-                    }
-                }
-                
-                pnlChart.update();
-
-                unitsValueDisplay.textContent = numberFormat.format(unites);
-                caValueDisplay.textContent = currencyFormat.format(ca);
-                profitValueDisplay.textContent = currencyFormat.format(ebitda);
-                
-                profitValueDisplay.classList.toggle('text-green-600', ebitda >= 0);
-                profitValueDisplay.classList.toggle('text-red-600', ebitda < 0);
-            }
-
-            slider.addEventListener('input', (e) => updateFinances(parseInt(e.target.value)));
-            updateFinances(projectData.somUnits);
-
-            // ===== Logique de Navigation Active =====
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('nav a.nav-link');
-
-            function navHighlighter() {
-                let currentSectionId = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (window.scrollY >= sectionTop - 100) {
-                        currentSectionId = section.getAttribute('id');
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    link.classList.remove('nav-link-active');
-                    if (link.getAttribute('href') === `#${currentSectionId}`) {
-                        link.classList.add('nav-link-active');
-                    }
-                });
-            }
-
-            window.addEventListener('scroll', navHighlighter);
-            navHighlighter();
-
-            // Smooth scroll
-            navLinks.forEach(link => {
-                link.addEventListener('click', e => {
-                    e.preventDefault();
-                    document.querySelector(link.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
