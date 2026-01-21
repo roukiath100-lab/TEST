@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MG Consulting Group - Cabinet de conseil en Analyse Financière, Stratégie et Intelligence Économique en Afrique de l'Ouest">
-    <title>MG Consulting Group - Pilotez votre Croissance en Afrique de l'Ouest</title>
+    <meta name="description" content="MG CLARIVISION - Cabinet de conseil en Analyse Financière, Stratégie et Intelligence Économique en Afrique de l'Ouest">
+    <title>MG CLARIVISION - Pilotez votre Croissance en Afrique de l'Ouest</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
             <div class="logo">
                 <span class="logo-mg">MG</span>
-                <span class="logo-text">Consulting Group</span>
+                <span class="logo-text">CLARIVISION</span>
             </div>
             <button class="mobile-toggle" id="mobileToggle">
                 <span></span>
@@ -53,6 +54,41 @@
         </div>
     </section>
 
+    <section class="key-features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>100% Confidentialité</h3>
+                    <p>Protection totale de vos données stratégiques</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-globe-africa"></i>
+                    </div>
+                    <h3>Expertise Ouest-Africaine</h3>
+                    <p>Connaissance approfondie du marché régional</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Accompagnement Sur-Mesure</h3>
+                    <p>Solutions adaptées à vos besoins spécifiques</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Réactivité 24/7</h3>
+                    <p>Disponibilité et réponse rapide garanties</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="stats">
         <div class="container">
             <div class="stats-grid">
@@ -82,7 +118,7 @@
                 <div class="about-left">
                     <span class="section-badge">À propos de nous</span>
                     <h2 class="section-title">Qui sommes-nous ?</h2>
-                    <p class="about-description">Fondé par <strong>TCHANI Moubarak</strong> et <strong>Abdel AMADOU Ganiyou</strong>, <strong>MG Consulting Group</strong> combine une expertise financière rigoureuse et une vision stratégique pointue. Notre mission est d'accompagner nos clients dans l'optimisation de leur performance et l'anticipation des évolutions de leur environnement.</p>
+                    <p class="about-description">Fondé par <strong>TCHANI Moubarak</strong> et <strong>Abdel AMADOU Ganiyou</strong>, <strong>MG CLARIVISION</strong> combine une expertise financière rigoureuse et une vision stratégique pointue. Notre mission est d'accompagner nos clients dans l'optimisation de leur performance et l'anticipation des évolutions de leur environnement.</p>
                     <div class="highlight-box">
                         <svg class="highlight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -91,6 +127,7 @@
                     </div>
                 </div>
                 <div class="about-right">
+                    <div class="about-image"></div>
                     <div class="about-features">
                         <div class="feature-item">
                             <div class="feature-icon">
@@ -279,7 +316,7 @@
             <div class="testimonials-grid">
                 <div class="testimonial-card">
                     <div class="quote-icon">"</div>
-                    <p class="testimonial-text">MG Consulting Group nous a accompagnés dans la structuration de notre business plan et la recherche de financement. Leur rigueur et leur connaissance du terrain ont fait la différence.</p>
+                    <p class="testimonial-text">MG CLARIVISION nous a accompagnés dans la structuration de notre business plan et la recherche de financement. Leur rigueur et leur connaissance du terrain ont fait la différence.</p>
                     <div class="testimonial-author">
                         <div class="author-info">
                             <h4>Yves K.</h4>
@@ -317,7 +354,7 @@
         <div class="container">
             <span class="section-badge center-badge">Notre Méthode</span>
             <h2 class="section-title center">Notre Approche</h2>
-            <p class="section-subtitle">Pourquoi choisir MG Consulting Group ?</p>
+            <p class="section-subtitle">Pourquoi choisir MG CLARIVISION ?</p>
 
             <div class="approche-grid">
                 <div class="approche-card">
@@ -402,15 +439,14 @@
             <h2 class="section-title center">Prêt à passer au niveau supérieur ?</h2>
             <p class="section-subtitle">Discutons de vos enjeux</p>
 
-            <div class="contact-container">
-                <div class="contact-info">
+            <div class="contact-wrapper">
+                <div class="contact-info-section">
                     <h3>Nos Coordonnées</h3>
                     
                     <div class="contact-item">
-                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                            <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
+                        <div class="contact-icon-circle">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
                         <div>
                             <strong>Adresse</strong>
                             <p>Bénin<br>Nous intervenons partout en Afrique de l'Ouest</p>
@@ -418,9 +454,9 @@
                     </div>
 
                     <div class="contact-item">
-                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                        </svg>
+                        <div class="contact-icon-circle">
+                            <i class="fas fa-envelope"></i>
+                        </div>
                         <div>
                             <strong>Email</strong>
                             <p>
@@ -431,9 +467,9 @@
                     </div>
 
                     <div class="contact-item">
-                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                        </svg>
+                        <div class="contact-icon-circle">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
                         <div>
                             <strong>Téléphone / WhatsApp</strong>
                             <p>
@@ -444,9 +480,9 @@
                     </div>
 
                     <div class="contact-item">
-                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                        </svg>
+                        <div class="contact-icon-circle">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
                         <div>
                             <strong>Recrutement</strong>
                             <p>Nous agrandissons notre équipe selon les besoins. Contactez-nous !</p>
@@ -454,46 +490,51 @@
                     </div>
                 </div>
 
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <label for="nom">Nom complet *</label>
-                        <input type="text" id="nom" name="nom" required>
-                    </div>
+                <div class="contact-form-section">
+                    <form class="contact-form-card" id="contactForm">
+                        <div class="form-group">
+                            <label for="nom">Nom complet *</label>
+                            <input type="text" id="nom" name="nom" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="entreprise">Entreprise / Organisation</label>
-                        <input type="text" id="entreprise" name="entreprise">
-                    </div>
+                        <div class="form-group">
+                            <label for="entreprise">Entreprise / Organisation</label>
+                            <input type="text" id="entreprise" name="entreprise">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="email">Email *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="telephone">Téléphone *</label>
-                        <input type="tel" id="telephone" name="telephone" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="telephone">Téléphone *</label>
+                            <input type="tel" id="telephone" name="telephone" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="besoin">Type de besoin *</label>
-                        <select id="besoin" name="besoin" required>
-                            <option value="">-- Sélectionnez --</option>
-                            <option value="audit">Audit / Analyse Financière</option>
-                            <option value="financement">Financement / Business Plan</option>
-                            <option value="strategie">Stratégie / Veille</option>
-                            <option value="ong">Projet ONG / Développement</option>
-                            <option value="autre">Autre</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label for="besoin">Type de besoin *</label>
+                            <select id="besoin" name="besoin" required>
+                                <option value="">-- Sélectionnez --</option>
+                                <option value="audit">Audit / Analyse Financière</option>
+                                <option value="financement">Financement / Business Plan</option>
+                                <option value="strategie">Stratégie / Veille</option>
+                                <option value="ong">Projet ONG / Développement</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="4"></textarea>
-                    </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="4"></textarea>
+                        </div>
 
-                    <button type="submit" class="btn btn-primary btn-full">Envoyer ma demande</button>
-                </form>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-paper-plane"></i>
+                            Envoyer ma demande
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -504,30 +545,46 @@
                 <div class="footer-brand">
                     <div class="logo">
                         <span class="logo-mg">MG</span>
-                        <span class="logo-text">Consulting Group</span>
+                        <span class="logo-text">CLARIVISION</span>
                     </div>
-                    <p>Cabinet de conseil en Finance, Stratégie et Intelligence Économique</p>
+                    <p>Cabinet de conseil en Analyse Financière, Stratégie et Intelligence Économique en Afrique de l'Ouest.</p>
+                    <p class="footer-tagline">Votre partenaire de confiance pour piloter votre croissance.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Liens rapides</h4>
                     <ul>
-                        <li><a href="#accueil">Accueil</a></li>
-                        <li><a href="#expertises">Nos Expertises</a></li>
-                        <li><a href="#approche">Notre Approche</a></li>
-                        <li><a href="#ressources">Ressources</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#accueil"><i class="fas fa-angle-right"></i> Accueil</a></li>
+                        <li><a href="#expertises"><i class="fas fa-angle-right"></i> Nos Expertises</a></li>
+                        <li><a href="#approche"><i class="fas fa-angle-right"></i> Notre Approche</a></li>
+                        <li><a href="#ressources"><i class="fas fa-angle-right"></i> Ressources</a></li>
+                        <li><a href="#contact"><i class="fas fa-angle-right"></i> Contact</a></li>
                     </ul>
                 </div>
-                <div class="footer-contact">
-                    <h4>Contact</h4>
-                    <p>Email: <a href="mailto:abdelamad@yahoo.com">abdelamad@yahoo.com</a></p>
-                    <p>Email: <a href="mailto:tchanimoub@gmail.com">tchanimoub@gmail.com</a></p>
-                    <p>Tél: <a href="tel:+330602869748">+33 06 02 86 97 48</a></p>
-                    <p>WhatsApp: <a href="https://wa.me/2290161011814">+229 01 61 01 18 14</a></p>
+                <div class="footer-social">
+                    <h4>Suivez-nous</h4>
+                    <div class="social-links">
+                        <a href="https://linkedin.com" target="_blank" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="mailto:abdelamad@yahoo.com" class="social-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                    <div class="footer-contact-info">
+                        <p><i class="fas fa-phone"></i> +33 06 02 86 97 48</p>
+                        <p><i class="fas fa-envelope"></i> abdelamad@yahoo.com</p>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 MG Consulting Group. Tous droits réservés.</p>
+                <p>&copy; 2026 MG CLARIVISION. Tous droits réservés.</p>
+                <p class="footer-made">Conçu avec <i class="fas fa-heart"></i> pour l'Afrique de l'Ouest</p>
             </div>
         </div>
     </footer>
